@@ -1,0 +1,48 @@
+@URL = http://localhost:3000/auth
+
+### Signup new User
+POST {{URL}}/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "lina@kurabi.net",
+    "password": "!Q2w#E4r"
+}
+
+### Signin as an existing User
+POST {{URL}}/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "Ammar@kurabi.net",
+    "password": "!Q2w#E4r"
+}
+
+### Signout as an existing User
+POST {{URL}}/signout HTTP/1.1
+Content-Type: application/json
+
+### Update an existing user
+PATCH {{URL}}/4 HTTP/1.1
+Content-Type: application/json
+
+{
+    "password": "^Yt5R$3e"
+}
+
+### Get User By ID
+GET {{URL}}/2 HTTP/1.1
+
+### Get all users: filter by email
+GET {{URL}}?email=ammar@kurabi.net HTTP/1.1
+
+### Get all users
+GET {{URL}} HTTP/1.1
+
+
+### Remove a user
+DELETE {{URL}}/4
+
+### Get the current iser
+GET {{URL}}/whoami HTTP/1.1
+
