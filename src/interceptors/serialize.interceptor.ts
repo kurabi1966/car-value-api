@@ -13,10 +13,15 @@ interface ClassConstructor {
 export function SerializeUser(dto: ClassConstructor) {
     return UseInterceptors(new SerializeInterceptor(dto));
 }
+
+export function SerializeReport(dto: ClassConstructor){
+    return UseInterceptors(new SerializeInterceptor(dto));
+}
 export class SerializeInterceptor implements NestInterceptor{
     constructor(private dto: any) {}
 
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
+
         const request = context.switchToHttp().getRequest();
         // Check if email exists in the body and convert it to lowercase
         if (request.body && request.body.email) {
@@ -25,7 +30,6 @@ export class SerializeInterceptor implements NestInterceptor{
 
         return next.handle().pipe(
             map((data: any) => {
-                // console.log('I am running before the handler', data);
                 return plainToInstance(this.dto, data, {
                     excludeExtraneousValues: true
                 })

@@ -6,7 +6,7 @@ import { SigninDto } from './dtos/signin-dto';
 import { CurrentUser } from './decorators';
 import { User } from './user.entity';
 import { AuthGuard } from './guards';
-import { SerializeUser } from './interceptors';
+import { SerializeUser } from 'src/interceptors';
 
 
 // @UseInterceptors(new SerializeInterceptor(UserDto))
@@ -14,6 +14,12 @@ import { SerializeUser } from './interceptors';
 @Controller('auth')
 export class UsersController {
     constructor(private readonly usersService: UsersService, private readonly authService: AuthService) {}
+
+    @Get('ping')
+    ping() {
+        return 'pong';
+    }
+
 
     @UseGuards(AuthGuard)
     @Post('signout')
@@ -46,8 +52,7 @@ export class UsersController {
 
     @Get(':id')
     findOneById(@Param('id') id: number){
-        console.log('findOneById has been called with id: ', id);
-        return this.usersService.findOneById(id);
+        return this.usersService.findOne(id);
     }
 
     @Get()

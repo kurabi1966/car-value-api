@@ -12,7 +12,7 @@ export class AuthService {
     async signup(email: string, password: string) {
         // check if the user already exists
         const user = await this.usersService.find(email);
-        
+
         if (user.length > 0) {
             throw new BadRequestException('email already in use');
         }
