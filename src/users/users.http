@@ -14,7 +14,7 @@ POST {{URL}}/signin HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "Ammar@kurabi.net",
+    "email": "ammar@kurabi.net",
     "password": "!Q2w#E4r"
 }
 
