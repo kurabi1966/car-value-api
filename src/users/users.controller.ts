@@ -1,12 +1,13 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Session, UseGuards } from '@nestjs/common';
 import { SignupDto, UpdateUserDto, UserDto } from './dtos';
 import { UsersService } from './users.service';
-import { SerializeUser } from 'src/interceptors';
 import { AuthService } from './auth.service';
 import { SigninDto } from './dtos/signin-dto';
 import { CurrentUser } from './decorators';
 import { User } from './user.entity';
 import { AuthGuard } from './guards';
+import { SerializeUser } from './interceptors';
+
 
 // @UseInterceptors(new SerializeInterceptor(UserDto))
 @SerializeUser(UserDto)
@@ -18,12 +19,8 @@ export class UsersController {
     @Post('signout')
     signout(@Session() session: any) {
         session.userId = null;
+        return { message: 'Signed out successfully' };
     }
-
-    // @Get('whoami')
-    // whoAMI(@Session() session: any) {
-    //     return this.usersService.findOneById(session.userId);
-    // }
 
     @UseGuards(AuthGuard)
     @Get('whoami')
@@ -49,6 +46,7 @@ export class UsersController {
 
     @Get(':id')
     findOneById(@Param('id') id: number){
+        console.log('findOneById has been called with id: ', id);
         return this.usersService.findOneById(id);
     }
 

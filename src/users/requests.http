@@ -41,7 +41,7 @@ GET {{URL}} HTTP/1.1
 
 
 ### Remove a user
-DELETE {{URL}}/4
+DELETE {{URL}}/6
 
 ### Get the current iser
 GET {{URL}}/whoami HTTP/1.1

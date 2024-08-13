@@ -1,1 +1,0 @@
-export {SerializeUser} from './serialize.interceptor';
