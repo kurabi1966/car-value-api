@@ -23,10 +23,6 @@ export class SerializeInterceptor implements NestInterceptor{
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
 
         const request = context.switchToHttp().getRequest();
-        // Check if email exists in the body and convert it to lowercase
-        if (request.body && request.body.email) {
-          request.body.email = request.body.email.toLowerCase();
-        }
 
         return next.handle().pipe(
             map((data: any) => {

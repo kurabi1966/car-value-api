@@ -21,11 +21,12 @@ export class UsersController {
     }
 
 
-    @UseGuards(AuthGuard)
     @Post('signout')
+    @UseGuards(AuthGuard)
     signout(@Session() session: any) {
         session.userId = null;
-        return { message: 'Signed out successfully' };
+        return 'Signed out successfully';
+        // return { message: 'Signed out successfully' };
     }
 
     @UseGuards(AuthGuard)
@@ -38,6 +39,7 @@ export class UsersController {
     async signup(@Body() signupUserDto: SignupDto, @Session() session: any) {
         const {email, password} = signupUserDto;
         const user = await this.authService.signup(email,password);
+        // session.user = {email: user.email, id: user.id, admin: user.admin};
         session.userId = user.id;
         return user;
     }
@@ -45,6 +47,7 @@ export class UsersController {
     async signin(@Body() signinDto: SigninDto, @Session() session: any) {
         const {email, password} = signinDto;
         const user = await this.authService.signin(email,password);
+        // session.user = {email: user.email, id: user.id, admin: user.admin};
         session.userId = user.id;
         return user;
     }

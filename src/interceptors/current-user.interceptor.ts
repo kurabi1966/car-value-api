@@ -5,14 +5,18 @@ import { UsersService } from "../users/users.service";
 @Injectable()
 export class CurrentUserInterceptor implements NestInterceptor{
     constructor(private readonly usersService: UsersService) {}
-    intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
-        const request = context.switchToHttp().getRequest();
-        const {userId} = request.session || {};
-        if(userId) {
-            const user = this.usersService.findOne(userId);
-            request.currentUser = user;
-        }
+    async intercept(context: ExecutionContext, next: CallHandler<any>): Promise<Observable<any>> {
 
+        const request = context.switchToHttp().getRequest();
+        // request.currentUser = request.session.user || {};
+        request.currentUser = request.session.user;
+        // if(user) {
+        //     // const user = await this.usersService.findOne(userId);
+        //     request.currentUser = user;
+        // } else {
+
+        // }
+        // console.log('3. current user interceptor: ',request.currentUser);
         return next.handle();
 
     }
